@@ -1,4 +1,4 @@
-rally
+Rally
 =====
 
 Coding exercise
