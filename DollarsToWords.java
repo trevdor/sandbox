@@ -31,10 +31,11 @@ public class DollarsToWords {
 	
 	private static String translate(String amount)
 	{
+		ArrayList englishAmountParts = new ArrayList();
 		String cents = "00";
 		String dollars;
 		
-		// Tidy amount string to a string of digits, 
+		// Tidy up amount string to a string of digits, 
 		// saving sign and cents portion for later
 		String tidyAmount = amount.replaceAll("[\\$,]", "");
 		
@@ -49,7 +50,6 @@ public class DollarsToWords {
 			dollars = tidyAmount;
 		}
 		
-		ArrayList englishAmountParts = new ArrayList();
 		int length = dollars.length();
 		for (int i=0; i < length; i++)
 		{
