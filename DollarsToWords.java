@@ -118,7 +118,7 @@ public class DollarsToWords {
 			System.out.println("Only positive dollar values are supported.");
 			System.exit(1);
 		}			 
-		else if (!Pattern.matches("\\$?\\d{1,3}(,?\\d{3})*(\\.\\d{2})?", amount))
+		else if (!Pattern.matches("\\$?[^0]\\d{0,2}(,?\\d{3})*(\\.\\d{2})?", amount))
 		{	// Intended pattern is: 
 			// optional dollar sign then digits followed by (optionally comma-separated) 
 			// triplets of digits until an optional decimal point with two cents digits
