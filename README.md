@@ -8,4 +8,4 @@ Write some code that will accept an amount and convert it to the appropriate str
 
 
 <h3>Notes</h3>
-My solution requires Guava--only because I couldn't bring myself to do delimited string concatenation without Joiner. It's bundled in the lib/ folder.
+I tried to stick to native Java for ease of sharing, but ended up including Guava (bundled in the lib/ folder) because delimited string concatenation was messy without Joiner.
