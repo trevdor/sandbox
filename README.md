@@ -9,6 +9,6 @@ Write some code that will accept an amount and convert it to the appropriate str
 
 <h3>Notes</h3>
 Expected usage:
-  java -jar DollarsToWords.jar <amount> 
+  java -jar DollarsToWords.jar \<amount\> 
 
 I tried to stick to native Java for ease of sharing, but ended up including Guava (bundled in the lib/ folder) because I wanted a Joiner for delimited string concatenation.
