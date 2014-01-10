@@ -97,7 +97,7 @@ public class DollarsToWords {
 				
 				i++;  // we just dealt with the imminent ones place, so skip it
 			}
-			else if (placeValue % 3 == 2) // relative hundreds place
+			else if (placeValue % 3 == 2 && digit != 0) // relative hundreds place
 			{
 				englishAmountParts.add(zeroTo19[0][digit]);
 				englishAmountParts.add("hundred");
