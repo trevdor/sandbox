@@ -75,7 +75,7 @@ public class DollarsToWords {
 				}
 				else 
 				{
- 					System.err.println("The amount entered exceeds the supported maximum.");
+					System.err.println("The amount entered exceeds the supported maximum.");
 					System.exit(1);
 				}
 			}
