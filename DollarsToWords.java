@@ -105,8 +105,7 @@ public class DollarsToWords {
 		}
 		
 		String dollarsInEnglish = Joiner.on(" ").join(englishAmountParts);
-		String centsString = (cents.equals("00")) ? "" : " and " + cents + "/100";
-		String amountInEnglish = dollarsInEnglish + centsString + " dollars";
+		String amountInEnglish = dollarsInEnglish + " and " + cents + "/100 dollars";
 		
 		// finally, capitalize the first letter
 		return amountInEnglish.substring(0,1).toUpperCase() + amountInEnglish.substring(1);
