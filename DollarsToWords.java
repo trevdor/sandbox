@@ -66,17 +66,21 @@ public class DollarsToWords {
 			if (placeValue % 3 == 0) // we're at a relative ones place
 			{
 				// fetch the number word
-				englishAmountParts.add(zeroTo19[0][digit]);
+				// zeroes are only stated when the total dollars is zero
+				if (digit != 0 || length == 1) 
+				{
+					englishAmountParts.add(zeroTo19[0][digit]);
 				
-				// Do we have a label for this large amount?
-				if ((placeValue/3) < largeOnes.length-1)
-				{
-					englishAmountParts.add(largeOnes[placeValue/3]);
-				}
-				else 
-				{
-					System.err.println("The amount entered exceeds the supported maximum.");
-					System.exit(1);
+					// Do we have a label for this large amount?
+					if ((placeValue/3) < largeOnes.length-1)
+					{
+						englishAmountParts.add(largeOnes[placeValue/3]);
+					}
+					else 
+					{
+						System.err.println("The amount entered exceeds the supported maximum.");
+						System.exit(1);
+					}
 				}
 			}
 			else if (placeValue % 3 == 1) // a relative tens place
@@ -84,6 +88,10 @@ public class DollarsToWords {
 				// Tens and ones places have to be translated to words together,
 				// so peek ahead to the next digit
 				int onesValue = Integer.parseInt(dollars.substring(i+1,i+2));
+				
+				// zeros go unstated
+				if (digit == 0 && onesValue == 0)
+					continue;
 				
 				// the number's name
 				if (digit == 0 || digit == 1)
