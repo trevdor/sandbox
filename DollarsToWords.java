@@ -71,7 +71,6 @@ public class DollarsToWords {
 				// Do we have a label for this large amount?
 				if ((placeValue/3) < largeOnes.length-1)
 				{
-					// except for the last ones place, get the 10^3 label
 					englishAmountParts.add(largeOnes[placeValue/3]);
 				}
 				else 
@@ -92,7 +91,7 @@ public class DollarsToWords {
 				else
 					englishAmountParts.add(tens[digit] + "-" + zeroTo19[0][onesValue]);
 				
-				// the number's label
+				// the number's label (no labels for actual ones place)
 				if (placeValue != 1)
 					englishAmountParts.add(largeOnes[(placeValue-1)/3]);
 				
