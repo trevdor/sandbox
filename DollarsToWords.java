@@ -14,9 +14,9 @@ public class DollarsToWords {
 		{"ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"}
 	};
 	private static final String[] tens = 
-		{ "", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
+		{ "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
 	private static final String[] largeOnes = 
-		{ "", "thousand", "million", "billion", "trillion", "quadrillion", "quintillion" };
+		{ "thousand", "million", "billion", "trillion", "quadrillion", "quintillion" };
 	
 	
 	public static void main(String[] args) {
@@ -78,10 +78,10 @@ public class DollarsToWords {
 				if (digit == 1)
 					englishAmountParts.add(zeroTo19[digit][onesValue]); 
 				else
-					englishAmountParts.add(tens[digit] + "-" + zeroTo19[0][onesValue]);
+					englishAmountParts.add(tens[digit-1] + "-" + zeroTo19[0][onesValue]);
 				
 				// the number's label (no labels for actual ones place)
-				if (placeValue != 1)
+				if (placeValue != 1 && (placeValue-1)/3 > 0)
 					englishAmountParts.add(largeOnes[(placeValue-1)/3]);
 				
 				i++;  // we just dealt with the imminent ones place, so skip it
@@ -95,10 +95,11 @@ public class DollarsToWords {
 				{
 					englishAmountParts.add(zeroTo19[0][digit]);
 				
-					if (digit == 0) // no label for solo zeroes
+					// no large amount label for solo zeroes or final ones place
+					if (digit == 0 || i == length-1)
 						continue;
 					
-					// Do we have a label for this large amount?
+					// Do we know the name of this large amount?
 					if ( placeValue/3 < largeOnes.length-1 )
 					{
 						englishAmountParts.add(largeOnes[placeValue/3]);
