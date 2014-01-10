@@ -63,38 +63,19 @@ public class DollarsToWords {
 			int placeValue = length - i - 1; 
 			int digit = Integer.parseInt(dollars.substring(i,i+1)); // digit at i
 			
-			if (placeValue % 3 == 0) // we're at a relative ones place
+			if (placeValue % 3 == 2 && digit != 0) // we're at a relative hundreds place
 			{
-				// fetch the number word
-				// zeroes are only stated when the total dollars is zero
-				if (digit != 0 || length == 1) 
-				{
-					englishAmountParts.add(zeroTo19[0][digit]);
-				
-					// Do we have a label for this large amount?
-					if ((placeValue/3) < largeOnes.length-1)
-					{
-						englishAmountParts.add(largeOnes[placeValue/3]);
-					}
-					else 
-					{
-						System.err.println("The amount entered exceeds the supported maximum.");
-						System.exit(1);
-					}
-				}
+				englishAmountParts.add(zeroTo19[0][digit]);
+				englishAmountParts.add("hundred");
 			}
-			else if (placeValue % 3 == 1) // a relative tens place
+			else if (placeValue % 3 == 1 && digit != 0) // a relative tens place
 			{
 				// Tens and ones places have to be translated to words together,
 				// so peek ahead to the next digit
 				int onesValue = Integer.parseInt(dollars.substring(i+1,i+2));
 				
-				// zeros go unstated
-				if (digit == 0 && onesValue == 0)
-					continue;
-				
 				// the number's name
-				if (digit == 0 || digit == 1)
+				if (digit == 1)
 					englishAmountParts.add(zeroTo19[digit][onesValue]); 
 				else
 					englishAmountParts.add(tens[digit] + "-" + zeroTo19[0][onesValue]);
@@ -105,10 +86,29 @@ public class DollarsToWords {
 				
 				i++;  // we just dealt with the imminent ones place, so skip it
 			}
-			else if (placeValue % 3 == 2 && digit != 0) // relative hundreds place
+			else if (placeValue % 3 == 0) // a relative ones place
 			{
-				englishAmountParts.add(zeroTo19[0][digit]);
-				englishAmountParts.add("hundred");
+				// fetch the number word
+				// Note: zeroes are only stated in the final ones place 
+				// when there have been no other positive digits so far
+				if (digit != 0 || englishAmountParts.isEmpty()) 
+				{
+					englishAmountParts.add(zeroTo19[0][digit]);
+				
+					if (digit == 0) // no label for solo zeroes
+						continue;
+					
+					// Do we have a label for this large amount?
+					if ( placeValue/3 < largeOnes.length-1 )
+					{
+						englishAmountParts.add(largeOnes[placeValue/3]);
+					}
+					else 
+					{
+						System.err.println("The amount entered exceeds the supported maximum.");
+						System.exit(1);
+					}
+				}
 			}
 		}
 		
@@ -125,8 +125,8 @@ public class DollarsToWords {
 		{
 			System.out.println("Only positive dollar values are supported.");
 			System.exit(1);
-		}			 
-		else if (!Pattern.matches("\\$?[^0]\\d{0,2}(,?\\d{3})*(\\.\\d{2})?", amount))
+		}
+		else if (!Pattern.matches("\\$?\\d{0,2}(,?\\d{3})*(\\.\\d{2})?", amount))
 		{	// Intended pattern is: 
 			// optional dollar sign then digits followed by (optionally comma-separated) 
 			// triplets of digits until an optional decimal point with two cents digits
